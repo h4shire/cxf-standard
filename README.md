@@ -4,7 +4,7 @@
 [![Schemas](https://img.shields.io/badge/CDDL-normative-green.svg)](#repository-layout)
 [![Interop](https://img.shields.io/badge/interop-required-orange.svg)](#governance-and-interoperability)
 [![Status](https://img.shields.io/badge/status-stable%20core-success.svg)](#current-status)
-[![License](https://img.shields.io/badge/license-TBD-lightgrey.svg)](#license)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](#license)
 
 CXF is an open, deterministic, cryptographically verifiable container format for digital evidence.
 
@@ -298,13 +298,13 @@ The project expects public evidence of:
 
 Replace these placeholders once the public project is live:
 
-- **Specification:** `https://github.com/<org>/cxf/tree/main/spec`
-- **Registry:** `https://github.com/<org>/cxf/tree/main/registry`
-- **Schemas:** `https://github.com/<org>/cxf/tree/main/cddl`
-- **Test corpus:** `https://github.com/<org>/cxf/tree/main/tests`
-- **Interop reports:** `https://github.com/<org>/cxf/tree/main/interop`
-- **Issues:** `https://github.com/<org>/cxf/issues`
-- **Discussions:** `https://github.com/<org>/cxf/discussions`
+- **Specification:** `https://github.com/h4shire/cxf-standard/tree/main/spec`
+- **Registry:** `https://github.com/h4shire/cxf-standard/tree/main/registry`
+- **Schemas:** `https://github.com/h4shire/cxf-standard/tree/main/cddl`
+- **Test corpus:** `https://github.com/h4shire/cxf-standard/tree/main/tests`
+- **Interop reports:** `https://github.com/h4shire/cxf-standard/tree/main/interop`
+- **Issues:** `https://github.com/h4shire/cxf-standard/issues`
+- **Discussions:** `https://github.com/h4shire/cxf-standard/discussions`
 
 ---
 
@@ -440,10 +440,10 @@ Planned channels:
 
 Suggested placeholders:
 
-- **Mailing list:** `cxf-community@<domain>`
-- **Security contact:** `security@<domain>`
-- **Registry contact:** `registry@<domain>`
-- **Interop coordination:** `interop@<domain>`
+- **Mailing list:** `community@cxf-standard.org`
+- **Security contact:** `security@cxf-standard.org`
+- **Registry contact:** `registry@cxf-standard.org`
+- **Interop coordination:** `interop@cxf-standard.org`
 
 ---
 
@@ -451,7 +451,13 @@ Suggested placeholders:
 
 **TBD**
 
-Until a final license is selected, treat repository contents according to the project’s published contribution and governance rules.
+Unless noted otherwise, this repository is licensed under the Apache License, Version 2.0.
+
+This includes the specification text, schemas, registries, examples, tests, and governance documents contained in this repository, unless a file or subdirectory states otherwise.
+
+See `LICENSE` for the full license text.
+
+SPDX-License-Identifier: Apache-2.0
 
 ---
 

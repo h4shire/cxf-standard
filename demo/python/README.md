@@ -1,83 +1,37 @@
 # CXF Python Demo Prototype
 
-This directory contains a small Python prototype for experimenting with core CXF verification concepts.
+This directory contains a small Python-based CXF demo verifier.
 
-The goal of this prototype is not to provide a complete CXF implementation. Instead, it provides a lightweight starting point for:
-
-- loading a manifest from JSON or CBOR
-- computing SHA3-256 chunk hashes
-- deriving a simple Merkle-style final root from chunk hashes
-- comparing the derived root with the expected root in the manifest
-- producing a small demo verifier output as JSON
-
-## Scope
-
-This prototype is intentionally limited.
-
-It currently focuses on:
+The prototype is intentionally limited. It is not a full CXF 1.0 implementation and it is not a normative reference implementation. Its purpose is to help the community experiment with:
 
 - manifest loading
-- chunk hashing
-- final-root derivation
-- basic report generation
+- SHA3-256 chunk hashing
+- simple Merkle-style final root derivation
+- generation of a small demo verifier output
 
-It does **not** yet implement:
+## What it can do
 
-- full CXF bitstream parsing
+The current prototype can:
+
+1. load a manifest from JSON or CBOR
+2. hash the chunk files referenced by the manifest
+3. derive a simple deterministic final root
+4. compare the derived value with `expected_final_root`
+5. emit a demo verifier output as JSON
+
+## What it does not do yet
+
+The current prototype does not yet implement:
+
+- the full CXF bitstream format
+- full canonical CBOR validation
 - COSE signing
-- receipt generation
-- BridgeAuditTrail handling
-- DigestSunsetDecisionRecord handling
-- LTR-1 to LTR-4 validation
-- discovery sidecar validation
+- receipts
+- bridge audit trails
+- digest sunset records
+- recovery evidence or LTR-4 logic
 
-## Files
-
-- `cxf_demo.py` — command-line entry point
-- `requirements.txt` — Python dependency list
-
-## Manifest format used by this prototype
-
-The prototype accepts a JSON or CBOR manifest with a structure similar to the following:
-
-```json
-{
-  "bitstream_version": "1.0",
-  "active_profile_ids": ["sha3-256", "demo-merkle"],
-  "logical_size": 12345,
-  "chunk_count": 2,
-  "expected_final_root": "<hex sha3-256 digest>",
-  "chunks": [
-    {
-      "chunk_id": 0,
-      "path": "chunk0.bin"
-    },
-    {
-      "chunk_id": 1,
-      "path": "chunk1.bin"
-    }
-  ]
-}
-```
-
-Notes:
-
-- `expected_final_root` is optional. If omitted, the prototype will still compute and display the derived root.
-- Chunk paths are resolved relative to the manifest file.
-- The demo Merkle procedure is deterministic and SHA3-256-based.
-
-## Demo Merkle rule
-
-This prototype uses a simple deterministic Merkle-style rule for demonstration:
-
-- hash each chunk with SHA3-256
-- if a level has an odd number of nodes, duplicate the last node
-- parent hash = `SHA3-256(left || right)`
-- continue until one root remains
-
-This rule is intentionally simple and should be treated as a prototype mechanism, not as a final normative CXF implementation unless and until it is explicitly aligned with the final specification language.
-
-## Installation
+## Install
 
 ```bash
 python3 -m venv .venv
@@ -85,48 +39,24 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Usage
-
-### Verify a manifest
+## Run the bundled example
 
 ```bash
-python cxf_demo.py verify path/to/manifest.json
+python3 cxf_demo.py examples/minimal-valid/manifest.json
 ```
 
-### Write verifier output to a file
+## Expected result
 
-```bash
-python cxf_demo.py verify path/to/manifest.json --output verifier-output.json
-```
+The demo prints a verifier-style JSON object to standard output.
 
-### Pretty-print only
+For the bundled example, the output should indicate:
 
-```bash
-python cxf_demo.py verify path/to/manifest.json --pretty
-```
+- a valid layout assumption
+- a verified final root
+- two verified chunks
+- no bridge usage
+- no recovery semantics
 
-## Example verifier output
+## Repository intent
 
-The prototype produces a small JSON report with fields such as:
-
-- `tool_identity`
-- `build_identity`
-- `manifest_path`
-- `manifest_hash_sha3_256`
-- `derived_final_root`
-- `expected_final_root`
-- `root_match`
-- `verification_events`
-- `summary`
-
-This is a demo-oriented output format intended to help shape later work on a fuller verifier-output implementation.
-
-## Intended next steps
-
-The natural follow-up steps for this prototype are:
-
-1. add canonical sample manifests and chunk files under `examples/`
-2. support standardized CXF verifier-output field naming more closely
-3. add CBOR output mode
-4. add COSE signing for attested demo reports
-5. evolve the prototype into a stronger reference implementation, likely in Rust
+This prototype is a practical development aid for the CXF repository. It is suitable for experimentation and early interoperability discussions. A future production-grade implementation would be better suited to Rust or C.

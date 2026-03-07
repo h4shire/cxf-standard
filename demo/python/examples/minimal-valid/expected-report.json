@@ -1,0 +1,17 @@
+{
+  "report_schema_version": "demo-v1",
+  "summary": {
+    "structural_state": "valid_layout",
+    "verification_state": "verified",
+    "content_state": "verified",
+    "chunks_total": 2,
+    "chunks_verified": 2,
+    "chunks_mismatched": 0,
+    "bridge_used": false
+  },
+  "expected_final_root": "6a84e288b41b27044efe579765f8ed7e675b6e9bde232e4a3a2044318fa66a29",
+  "expected_chunk_hashes": [
+    "9675ecba68c05faabc97f77ef984f44f6460b25e1ec89e3df9eb422a25b4869b",
+    "fc2b926314c534e0caabf19cb5d2267ce24cb872788547b7476b34257b3e8695"
+  ]
+}

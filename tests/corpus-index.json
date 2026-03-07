@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "description": "Placeholder corpus index for the CXF 1.0 positive, negative, and malformed test corpus.",
+  "sections": [
+    "positive",
+    "negative",
+    "malformed"
+  ]
+}

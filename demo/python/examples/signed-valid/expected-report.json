@@ -2,9 +2,9 @@
   "report_schema_version": "demo-v1",
   "tool_identity": "cxf-python-demo",
   "build_identity": "local-dev",
-  "manifest_hash": "4daaa5084a0f099609b759d443846561ea38f47fb3b98f936aca2c9b5f24da55",
-  "expected_final_root": "288067a52df145103b518b20013cdc3aef9b9c130407b8589bd27a60c2011310",
-  "calculated_final_root": "288067a52df145103b518b20013cdc3aef9b9c130407b8589bd27a60c2011310",
+  "manifest_hash": "87d64bc5f868bdbe147e13027407c706a874982f94dcb552762d9dd8066a353e",
+  "expected_final_root": "573528e157d651f43557614b7765500c31c89a867f476ee20ce8baa4ae957734",
+  "calculated_final_root": "573528e157d651f43557614b7765500c31c89a867f476ee20ce8baa4ae957734",
   "summary": {
     "structural_state": "valid_layout",
     "verification_state": "verified",
@@ -13,5 +13,43 @@
     "chunks_verified": 3,
     "chunks_mismatched": 0,
     "bridge_used": false
-  }
+  },
+  "verification_events": [
+    {
+      "sequence_no": 1,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0000.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 2,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0001.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 3,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0002.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 4,
+      "event_code": "final_root_verified",
+      "target_type": "container",
+      "target_ref": "signed-valid-demo",
+      "status_axis": "verification_state",
+      "status_value": "verified",
+      "reason_code": null
+    }
+  ]
 }

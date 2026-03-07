@@ -1,26 +1,20 @@
 {
   "container_id": "signed-valid-demo",
   "bitstream_version": "1.0-demo",
-  "chunk_count": 3,
-  "logical_size": 146,
-  "active_profile_ids": [
-    "sha3-256",
-    "demo-chunking-v1",
-    "demo-signed-valid-v1"
-  ],
-  "expected_final_root": "288067a52df145103b518b20013cdc3aef9b9c130407b8589bd27a60c2011310",
+  "digest_suite": "sha3-256",
+  "expected_final_root": "573528e157d651f43557614b7765500c31c89a867f476ee20ce8baa4ae957734",
   "chunks": [
     {
       "path": "chunks/chunk-0000.bin",
-      "sha3_256": "362ef870f027d71c40a09278d7ba457459e3138f6dd5dd4463d20a6496b2f832"
+      "sha3_256": "d8c8b751ccd8de375d20c902c53897bd98a6342e36f4b8caadb8b1a574b2d9ae"
     },
     {
       "path": "chunks/chunk-0001.bin",
-      "sha3_256": "96952b199f78de54c262930a52d519e94c325a51c556ca9b45537856901a3634"
+      "sha3_256": "528d03e559da5132c0767df17ff0dc96c96c8aa14bb8c433296112b65dee7220"
     },
     {
       "path": "chunks/chunk-0002.bin",
-      "sha3_256": "5eb16183f284d4adeeacb4c1057ed196a522e14017317e9363d1d27446236719"
+      "sha3_256": "875357c78b1ff23bb35ba65f930ef2cf65caddea67064a18b423596c772c0b05"
     }
   ]
 }

@@ -2,18 +2,45 @@
   "report_schema_version": "demo-v1",
   "tool_identity": "cxf-python-demo",
   "build_identity": "local-dev",
+  "manifest_hash": "e5bd7461184034db2df37a39170b6bf3d01a7c2fcc90b347d044d5692738c872",
+  "expected_final_root": "ae05d2490b9a4b0bbbb56b3f56bffeba091e2b719ef850cb519b2257ec22d635",
+  "calculated_final_root": "be0fd4e0bbe35c29a01752cfaf89c327fb8022db8c95156993d8574933016d4f",
   "summary": {
     "structural_state": "valid_layout",
     "verification_state": "failed",
-    "content_state": "mismatch_detected",
+    "content_state": "degraded",
     "chunks_total": 2,
     "chunks_verified": 1,
     "chunks_mismatched": 1,
     "bridge_used": false
   },
-  "expected_events": [
-    "chunk_verified for chunk-0000.bin",
-    "chunk_mismatch for chunk-0001.bin",
-    "final_root_mismatch for container"
+  "verification_events": [
+    {
+      "sequence_no": 1,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0000.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 2,
+      "event_code": "chunk_mismatch",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0001.bin",
+      "status_axis": "content_state",
+      "status_value": "mismatched",
+      "reason_code": "chunk_hash_mismatch"
+    },
+    {
+      "sequence_no": 3,
+      "event_code": "final_root_mismatch",
+      "target_type": "container",
+      "target_ref": "tampered-chunk-demo",
+      "status_axis": "verification_state",
+      "status_value": "failed",
+      "reason_code": "final_root_mismatch"
+    }
   ]
 }

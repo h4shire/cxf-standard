@@ -1,30 +1,23 @@
-# Minimal Valid Demo Example
+# minimal-valid
 
-This directory contains the first runnable example set for the Python CXF demo verifier.
+This example represents the smallest positive verification case for the Python CXF demo verifier.
 
 ## Included files
 
-- `manifest.json`  
-  A simple JSON manifest used by the prototype.
-- `chunks/`  
-  The demo chunk payloads.
-- `expected-report.json`  
-  A sample expected-style output for comparison and inspection.
+- `manifest.json` — demo manifest for this example
+- `expected-report.json` — expected verifier output for comparison with `--expect`
+- `chunks/` — chunk files referenced by the manifest
 
 ## Usage
 
-From `demo/python/` run:
+Run the verifier:
 
 ```bash
 python3 cxf_demo.py examples/minimal-valid/manifest.json
 ```
 
-Or write the output to a file:
+Compare with the expected report:
 
 ```bash
-python3 cxf_demo.py examples/minimal-valid/manifest.json --out examples/minimal-valid/generated-report.json
+python3 cxf_demo.py examples/minimal-valid/manifest.json --expect examples/minimal-valid/expected-report.json --strict
 ```
-
-## Note
-
-This example is intentionally small and is meant only to demonstrate the first end-to-end verification path of the Python prototype.

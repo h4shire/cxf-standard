@@ -1,7 +1,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
 
@@ -13,24 +13,18 @@ class VerificationEvent:
     target_ref: str
     status_axis: str
     status_value: str
-    reason_code: Optional[str] = None
+    reason_code: Optional[str]
 
     def to_dict(self) -> Dict[str, Any]:
-        return asdict(self)
-
-
-@dataclass
-class Summary:
-    structural_state: str
-    verification_state: str
-    content_state: str
-    chunks_total: int
-    chunks_verified: int
-    chunks_mismatched: int
-    bridge_used: bool
-
-    def to_dict(self) -> Dict[str, Any]:
-        return asdict(self)
+        return {
+            "sequence_no": self.sequence_no,
+            "event_code": self.event_code,
+            "target_type": self.target_type,
+            "target_ref": self.target_ref,
+            "status_axis": self.status_axis,
+            "status_value": self.status_value,
+            "reason_code": self.reason_code,
+        }
 
 
 @dataclass
@@ -42,7 +36,7 @@ class VerifierReport:
     manifest_hash: str
     expected_final_root: str
     calculated_final_root: str
-    summary: Summary
+    summary: Dict[str, Any]
     verification_events: List[VerificationEvent]
 
     def to_dict(self) -> Dict[str, Any]:
@@ -54,6 +48,6 @@ class VerifierReport:
             "manifest_hash": self.manifest_hash,
             "expected_final_root": self.expected_final_root,
             "calculated_final_root": self.calculated_final_root,
-            "summary": self.summary.to_dict(),
+            "summary": self.summary,
             "verification_events": [event.to_dict() for event in self.verification_events],
         }

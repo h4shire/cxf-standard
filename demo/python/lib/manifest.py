@@ -3,25 +3,29 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict
-
-import cbor2
-
-from .hashing import sha3_256_bytes
+from typing import Any, Dict, Tuple
 
 
-def canonical_json_bytes(obj: Dict[str, Any]) -> bytes:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+def load_manifest(path: str | Path) -> Tuple[Dict[str, Any], bytes]:
+    manifest_path = Path(path)
+    suffix = manifest_path.suffix.lower()
+    raw = manifest_path.read_bytes()
 
-
-def load_manifest(path: Path) -> Dict[str, Any]:
-    suffix = path.suffix.lower()
     if suffix == ".json":
-        return json.loads(path.read_text(encoding="utf-8"))
-    if suffix in {".cbor", ".cb0", ".cbor2"}:
-        return cbor2.loads(path.read_bytes())
-    raise ValueError(f"Unsupported manifest format: {path.suffix}")
+        return json.loads(raw.decode("utf-8")), raw
 
+    if suffix in {".cbor", ".cbor2"}:
+        try:
+            import cbor2  # type: ignore
+        except ModuleNotFoundError as exc:
+            raise RuntimeError(
+                "CBOR manifest support requires the optional dependency 'cbor2'. "
+                "Install it with: pip install cbor2"
+            ) from exc
 
-def manifest_hash_hex(manifest: Dict[str, Any]) -> str:
-    return sha3_256_bytes(canonical_json_bytes(manifest))
+        return cbor2.loads(raw), raw
+
+    raise ValueError(
+        f"Unsupported manifest format for '{manifest_path.name}'. "
+        "Expected .json, .cbor, or .cbor2"
+    )

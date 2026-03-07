@@ -1,78 +1,69 @@
-# CXF Python Demo Prototype
+# CXF Python Demo Verifier
 
-This directory contains a small Python prototype for demonstrating core CXF verification concepts.
+This directory contains a small Python prototype for demonstrating selected CXF verification flows.
 
-## Scope
-
-This prototype is intentionally limited. It is **not** a full CXF 1.0 reference implementation and it does **not** produce a finalized signed verifier artifact. Its purpose is to support repository examples, implementation discussion, and early validation experiments.
+The prototype is intentionally limited. It is **not** a full CXF 1.0 implementation and it is **not** a normative reference implementation. Its purpose is to support repository examples, demonstrate verifier behavior, and provide a lightweight local test harness for early CXF artifacts.
 
 ## Current capabilities
 
-The prototype can currently:
+The demo currently supports:
 
-- load a demo manifest from JSON
-- derive a deterministic manifest hash
-- hash chunk files using SHA3-256
-- derive a simple deterministic Merkle-style final root
-- compare the calculated root with the expected root in the manifest
-- emit a local demo verifier report as JSON
-- optionally write the report to disk with `--out`
+- loading a JSON or CBOR-style manifest
+- deriving a manifest hash from the manifest bytes
+- hashing referenced chunk files with SHA3-256
+- deriving a simple Merkle-style final root
+- generating a JSON verifier-style report
+- writing the generated report to disk
+- comparing the generated report against an expected report
+- returning stable exit codes for use in local validation and CI-style checks
 
-## Repository layout
+## Exit codes
 
-```text
-demo/python/
-├── README.md
-├── requirements.txt
-├── cxf_demo.py
-├── lib/
-│   ├── __init__.py
-│   ├── hashing.py
-│   ├── manifest.py
-│   ├── model.py
-│   └── verifier.py
-└── examples/
-    └── minimal-valid/
-        ├── README.md
-        ├── manifest.json
-        ├── expected-report.json
-        └── chunks/
-            ├── chunk-0000.bin
-            └── chunk-0001.bin
-```
+The CLI uses the following exit codes:
 
-## Quick start
+- `0` — verification completed successfully and the resulting verification state is `verified`
+- `1` — verification completed but the resulting verification state is not `verified`
+- `2` — loading, parsing, path, or structural execution error
+- `3` — expectation mismatch when `--expect` is used
 
-Create a virtual environment and install dependencies:
+## Usage
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Run the demo verifier:
+Run a basic verification:
 
 ```bash
 python3 cxf_demo.py examples/minimal-valid/manifest.json
 ```
 
-Write the verifier output to a file:
+Write the generated report to a file:
 
 ```bash
-python3 cxf_demo.py examples/minimal-valid/manifest.json --out report.json
+python3 cxf_demo.py examples/minimal-valid/manifest.json \
+  --out examples/minimal-valid/generated-report.json
+```
+
+Pretty-print the report:
+
+```bash
+python3 cxf_demo.py examples/minimal-valid/manifest.json --pretty
+```
+
+Compare the generated report with an expected report:
+
+```bash
+python3 cxf_demo.py examples/minimal-valid/manifest.json \
+  --expect examples/minimal-valid/expected-report.json
+```
+
+Strict mode treats any expectation mismatch as an explicit failure condition:
+
+```bash
+python3 cxf_demo.py examples/tampered-chunk/manifest.json \
+  --expect examples/tampered-chunk/expected-report.json \
+  --strict
 ```
 
 ## Notes
 
-- `manifest_hash` is now derived from a canonical JSON encoding used by this demo prototype.
-- The report format is still a local development artifact (`demo-v1`) and must not be confused with the final normative CXF 1.0 signed verifier output.
-- The Merkle-style final-root logic in this prototype is intentionally simple and exists only to support repository examples and incremental implementation work.
-
-## Next likely steps
-
-- add a second example set such as `signed-valid`
-- add malformed and negative test examples
-- introduce CBOR manifest loading
-- introduce schema-aware report generation
-- later add proper COSE-based signing for standardized outputs
+- This prototype uses a simplified Merkle-style derivation suitable for repository demonstration.
+- The standardized CXF verifier output is expected to be signed; this demo currently produces an unsigned JSON report for development and testing purposes.
+- The examples in `examples/` are intentionally small and readable so they can be inspected and understood without special tooling.

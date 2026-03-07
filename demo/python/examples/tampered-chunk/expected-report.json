@@ -1,0 +1,19 @@
+{
+  "report_schema_version": "demo-v1",
+  "tool_identity": "cxf-python-demo",
+  "build_identity": "local-dev",
+  "summary": {
+    "structural_state": "valid_layout",
+    "verification_state": "failed",
+    "content_state": "mismatch_detected",
+    "chunks_total": 2,
+    "chunks_verified": 1,
+    "chunks_mismatched": 1,
+    "bridge_used": false
+  },
+  "expected_events": [
+    "chunk_verified for chunk-0000.bin",
+    "chunk_mismatch for chunk-0001.bin",
+    "final_root_mismatch for container"
+  ]
+}

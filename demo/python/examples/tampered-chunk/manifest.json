@@ -1,0 +1,22 @@
+{
+  "container_id": "tampered-chunk-demo",
+  "bitstream_version": "1.0-demo",
+  "chunk_count": 2,
+  "logical_size": 121,
+  "active_profile_ids": [
+    "core.sha3-256"
+  ],
+  "expected_final_root": "1e59c571ac35603b9c0b068b802ab5c94d4a586263a185e18bc6c8a4892f5cd3",
+  "chunks": [
+    {
+      "id": 0,
+      "path": "chunks/chunk-0000.bin",
+      "sha3_256": "a2b1d5446fa486ca30edb5fedb968f8173733c55a818208758fe5958f248e26b"
+    },
+    {
+      "id": 1,
+      "path": "chunks/chunk-0001.bin",
+      "sha3_256": "5dd8580c86844225cd4444e718c3053675cf78b37b9076a95905b502ab83a4ec"
+    }
+  ]
+}

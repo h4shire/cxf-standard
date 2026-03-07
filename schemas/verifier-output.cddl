@@ -1,0 +1,120 @@
+; CXF 1.0 Core Specification
+; Normative CDDL for the standardized CXF Verifier Output payload.
+; The payload defined here MUST be wrapped in COSE_Sign1.
+; Only a signed artifact conforming to this schema may be called a
+; CXF Verifier Output.
+
+verifier-output-payload = {
+  1 => 1,                              ; report_schema_version = 1
+  2 => tool-identity,
+  3 => build-identity,
+  4 => manifest-hash,
+  5 => final-root,
+  6 => [* profile-id],                 ; active_profiles
+  7 => [1* verification-event],        ; append-only verification_events
+  8 => verifier-summary,
+  ? 9 => [* profile-id],               ; bridge_profiles
+}
+
+tool-identity = tstr
+build-identity = bstr / tstr
+profile-id = uint
+manifest-hash = bstr .size 32
+final-root = bstr .size 32
+
+verification-event = {
+  1 => sequence-no,
+  2 => target-type,
+  3 => target-ref,
+  4 => event-code,
+  5 => status-axis,
+  6 => status-value,
+  7 => reason-code,
+  ? 8 => recovery-evidence-ref,
+  ? 9 => bridge-profile-id,
+  ? 10 => field-name,
+}
+
+sequence-no = uint
+bridge-profile-id = uint
+field-name = tstr
+
+; target-type keeps report semantics uniform across manifest-, chunk-,
+; receipt-, footer-, and range-level events.
+target-type = "manifest" / "chunk" / "range" / "footer" / "receipt" / "bridge" / "discovery" / "container"
+
+target-ref = tstr / {
+  ? 1 => uint,                         ; chunk_id
+  ? 2 => uint,                         ; range_start
+  ? 3 => uint,                         ; range_length
+  ? 4 => bstr .size 16,                ; receipt/container UUID if relevant
+}
+
+; ----- event code catalog (minimum normative set for 1.0) -----
+; 1 = manifest_verified
+; 2 = manifest_rejected
+; 3 = merkle_verified
+; 4 = merkle_failed
+; 5 = chunk_verified
+; 6 = chunk_reconstructed
+; 7 = chunk_unreadable
+; 8 = bridge_used
+; 9 = discovery_divergence
+; 10 = discovery_integrity_failure
+; 11 = layout_valid
+; 12 = layout_invalid
+; 13 = receipt_verified
+; 14 = verifier_output_validated
+
+event-code = 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 11 / 12 / 13 / 14
+
+; ----- status model -----
+
+status-axis = "structural_state" / "verification_state" / "content_state"
+
+status-value =
+    structural-state
+  / verification-state
+  / content-state
+
+structural-state = "valid" / "recovered" / "invalid"
+verification-state = "verified" / "unverified" / "failed"
+content-state = "data" / "zero" / "unreadable" / "reconstructed"
+
+; ----- minimum normative reason-code catalog for 1.0 -----
+; Additional registry-controlled codes may be added by the registry.
+
+reason-code =
+    "none"
+  / "not_checked"
+  / "unsupported_suite"
+  / "key_unavailable"
+  / "receipt_missing"
+  / "io_error"
+  / "read_error"
+  / "fec_parity_exhausted"
+  / "bridge_used"
+  / "discovery_divergence"
+  / "discovery_integrity_failure"
+  / "verifier_output_unsigned"
+  / "verifier_output_key_unknown"
+  / "verifier_output_key_mismatch"
+  / "verifier_output_schema_mismatch"
+  / tstr
+
+; recovery evidence remains external. The verifier output only references it.
+recovery-evidence-ref = tstr / bstr
+
+; ----- deterministic summary -----
+; summary is derivative only and MUST be deterministically derivable from
+; verification_events.
+
+verifier-summary = {
+  1 => structural-state,
+  2 => verification-state,
+  3 => content-state,
+  ? 4 => uint,                         ; chunks_unreadable
+  ? 5 => uint,                         ; chunks_reconstructed
+  ? 6 => uint,                         ; chunks_verified
+  ? 7 => bool,                         ; bridge_used_overall
+}

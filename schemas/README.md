@@ -98,7 +98,7 @@ Recommended repository layout:
 
 ```text
 spec/
-  CXF_1.0_Specification.md
+  CXF_v1.0.md
 schemas/
   README.md
   manifest.cddl

@@ -1,0 +1,74 @@
+; CXF 1.0 Core / Governance Companion
+; Normative CDDL for the Digest Sunset Decision Record payload.
+; The payload defined here MUST be wrapped in COSE_Sign1.
+; Each decision is a separately signed governance artifact.
+;
+; Conditional rules (normative, not fully expressible in CDDL):
+; - predecessor_decision_hash SHOULD be present when a prior decision exists
+;   for the same subject_digest_id.
+; - rollback_of and rollback_justification_hash MUST be present when
+;   decision_reason_code = "rollback_approved".
+
+; State progression model for digest sunset governance:
+; current -> discouraged-for-new-deployments -> deprecated -> disallowed
+; rollback is only modeled where explicitly allowed by policy.
+
+digest-sunset-decision-record-payload = {
+  1 => 1,                              ; schema_version = 1
+  2 => decision-id,
+  3 => subject-digest-id,
+  4 => from-state,
+  5 => to-state,
+  6 => effective-at,
+  7 => decision-reason-code,
+  8 => interop-report-ref,
+  9 => confirmation-ref,
+  10 => evidence-refs,
+  11 => reviewing-body-ref,
+  ? 12 => predecessor-decision-hash,
+  ? 13 => rollback-of,
+  ? 14 => rollback-justification-hash,
+  ? 15 => notice-period-days,
+}
+
+decision-id = tstr / bstr
+
+; 1 = SHA-256 reporting digest
+; registry may define additional identifiers in later versions.
+subject-digest-id = 1
+
+from-state = state-id
+to-state = state-id
+
+; 0 = current
+; 1 = discouraged-for-new-deployments
+; 2 = deprecated
+; 3 = disallowed
+state-id = 0 / 1 / 2 / 3
+
+effective-at = tstr
+notice-period-days = uint
+
+decision-reason-code =
+    "criteria_satisfied"
+  / "interop_confirmed"
+  / "oversight_confirmed"
+  / "rollback_approved"
+  / "security_exception"
+  / "policy_exception"
+
+interop-report-ref = tstr / bstr
+confirmation-ref = tstr / bstr
+
+; one or more supporting artifacts, reports, or signed references
+; that justify the state transition.
+evidence-refs = [1* (tstr / bstr)]
+
+; reviewing_body_ref SHOULD be a registry-controlled integer identifier.
+; A URI or stable string identifier MAY be used when no registry identifier
+; exists yet.
+reviewing-body-ref = uint / tstr
+
+predecessor-decision-hash = bstr .size 32
+rollback-of = decision-id
+rollback-justification-hash = bstr .size 32

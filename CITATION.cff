@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+title: "CXF 1.0: Canonical eXchange Format for Digital Evidence"
+message: "If you use CXF, please cite the project using this metadata."
+type: software
+authors:
+  - name: "CXF Project"
+version: "1.0"
+date-released: "2026-01-01"
+license: "Apache-2.0"
+repository-code: "https://github.com/h4shire/cxf-standard"
+url: "https://cxf-standard.org"
+abstract: >
+  CXF is an open, deterministic, cryptographically verifiable
+  container format for digital evidence, designed for long-term
+  forensic preservation, reproducible verification, and interoperable
+  evidence exchange.
+keywords:
+  - digital evidence
+  - forensics
+  - evidence container
+  - CBOR
+  - COSE
+  - interoperability
+preferred-citation:
+  type: report
+  authors:
+    - name: "CXF Project"
+  title: "CXF 1.0: Canonical eXchange Format for Digital Evidence"
+  year: 2026
+  institution: ""
+  url: "https://cxf-standard.org"

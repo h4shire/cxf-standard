@@ -1,0 +1,17 @@
+{
+  "report_schema_version": "demo-v1",
+  "tool_identity": "cxf-python-demo",
+  "build_identity": "local-dev",
+  "manifest_hash": "4daaa5084a0f099609b759d443846561ea38f47fb3b98f936aca2c9b5f24da55",
+  "expected_final_root": "288067a52df145103b518b20013cdc3aef9b9c130407b8589bd27a60c2011310",
+  "calculated_final_root": "288067a52df145103b518b20013cdc3aef9b9c130407b8589bd27a60c2011310",
+  "summary": {
+    "structural_state": "valid_layout",
+    "verification_state": "verified",
+    "content_state": "verified",
+    "chunks_total": 3,
+    "chunks_verified": 3,
+    "chunks_mismatched": 0,
+    "bridge_used": false
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "container_id": "signed-valid-demo",
+  "bitstream_version": "1.0-demo",
+  "chunk_count": 3,
+  "logical_size": 146,
+  "active_profile_ids": [
+    "sha3-256",
+    "demo-chunking-v1",
+    "demo-signed-valid-v1"
+  ],
+  "expected_final_root": "288067a52df145103b518b20013cdc3aef9b9c130407b8589bd27a60c2011310",
+  "chunks": [
+    {
+      "path": "chunks/chunk-0000.bin",
+      "sha3_256": "362ef870f027d71c40a09278d7ba457459e3138f6dd5dd4463d20a6496b2f832"
+    },
+    {
+      "path": "chunks/chunk-0001.bin",
+      "sha3_256": "96952b199f78de54c262930a52d519e94c325a51c556ca9b45537856901a3634"
+    },
+    {
+      "path": "chunks/chunk-0002.bin",
+      "sha3_256": "5eb16183f284d4adeeacb4c1057ed196a522e14017317e9363d1d27446236719"
+    }
+  ]
+}

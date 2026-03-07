@@ -1,0 +1,47 @@
+{
+  "report_schema_version": "demo-v1",
+  "tool_identity": "cxf-python-demo",
+  "build_identity": "local-dev",
+  "manifest_path": "/Users/jens/Documents/GitHub/cxf-standard/demo/python/examples/minimal-valid/manifest.json",
+  "manifest_hash": "50821404a5a5acd3d723be29d86a21d68ee75af7f964f2cb8f19bca3ba9ed1f3",
+  "expected_final_root": "bd5594a62934747d2a8d2062853edaccfca592c85fb1e35ed15eb926e4b2fa5a",
+  "calculated_final_root": "bd5594a62934747d2a8d2062853edaccfca592c85fb1e35ed15eb926e4b2fa5a",
+  "summary": {
+    "structural_state": "valid_layout",
+    "verification_state": "verified",
+    "content_state": "verified",
+    "chunks_total": 2,
+    "chunks_verified": 2,
+    "chunks_mismatched": 0,
+    "bridge_used": false
+  },
+  "verification_events": [
+    {
+      "sequence_no": 1,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0000.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 2,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0001.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 3,
+      "event_code": "final_root_verified",
+      "target_type": "container",
+      "target_ref": "minimal-valid-demo",
+      "status_axis": "verification_state",
+      "status_value": "verified",
+      "reason_code": null
+    }
+  ]
+}

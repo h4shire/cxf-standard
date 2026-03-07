@@ -1,37 +1,49 @@
 # CXF Python Demo Prototype
 
-This directory contains a small Python-based CXF demo verifier.
+This directory contains a small Python prototype for demonstrating core CXF verification concepts.
 
-The prototype is intentionally limited. It is not a full CXF 1.0 implementation and it is not a normative reference implementation. Its purpose is to help the community experiment with:
+## Scope
 
-- manifest loading
-- SHA3-256 chunk hashing
-- simple Merkle-style final root derivation
-- generation of a small demo verifier output
+This prototype is intentionally limited. It is **not** a full CXF 1.0 reference implementation and it does **not** produce a finalized signed verifier artifact. Its purpose is to support repository examples, implementation discussion, and early validation experiments.
 
-## What it can do
+## Current capabilities
 
-The current prototype can:
+The prototype can currently:
 
-1. load a manifest from JSON or CBOR
-2. hash the chunk files referenced by the manifest
-3. derive a simple deterministic final root
-4. compare the derived value with `expected_final_root`
-5. emit a demo verifier output as JSON
+- load a demo manifest from JSON
+- derive a deterministic manifest hash
+- hash chunk files using SHA3-256
+- derive a simple deterministic Merkle-style final root
+- compare the calculated root with the expected root in the manifest
+- emit a local demo verifier report as JSON
+- optionally write the report to disk with `--out`
 
-## What it does not do yet
+## Repository layout
 
-The current prototype does not yet implement:
+```text
+demo/python/
+├── README.md
+├── requirements.txt
+├── cxf_demo.py
+├── lib/
+│   ├── __init__.py
+│   ├── hashing.py
+│   ├── manifest.py
+│   ├── model.py
+│   └── verifier.py
+└── examples/
+    └── minimal-valid/
+        ├── README.md
+        ├── manifest.json
+        ├── expected-report.json
+        └── chunks/
+            ├── chunk-0000.bin
+            └── chunk-0001.bin
+```
 
-- the full CXF bitstream format
-- full canonical CBOR validation
-- COSE signing
-- receipts
-- bridge audit trails
-- digest sunset records
-- recovery evidence or LTR-4 logic
+## Quick start
 
-## Install
+Create a virtual environment and install dependencies:
 
 ```bash
 python3 -m venv .venv
@@ -39,24 +51,28 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Run the bundled example
+Run the demo verifier:
 
 ```bash
 python3 cxf_demo.py examples/minimal-valid/manifest.json
 ```
 
-## Expected result
+Write the verifier output to a file:
 
-The demo prints a verifier-style JSON object to standard output.
+```bash
+python3 cxf_demo.py examples/minimal-valid/manifest.json --out report.json
+```
 
-For the bundled example, the output should indicate:
+## Notes
 
-- a valid layout assumption
-- a verified final root
-- two verified chunks
-- no bridge usage
-- no recovery semantics
+- `manifest_hash` is now derived from a canonical JSON encoding used by this demo prototype.
+- The report format is still a local development artifact (`demo-v1`) and must not be confused with the final normative CXF 1.0 signed verifier output.
+- The Merkle-style final-root logic in this prototype is intentionally simple and exists only to support repository examples and incremental implementation work.
 
-## Repository intent
+## Next likely steps
 
-This prototype is a practical development aid for the CXF repository. It is suitable for experimentation and early interoperability discussions. A future production-grade implementation would be better suited to Rust or C.
+- add a second example set such as `signed-valid`
+- add malformed and negative test examples
+- introduce CBOR manifest loading
+- introduce schema-aware report generation
+- later add proper COSE-based signing for standardized outputs

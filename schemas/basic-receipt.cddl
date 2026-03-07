@@ -1,0 +1,42 @@
+; CXF 1.0 Core Specification
+; Normative CDDL for the Basic Receipt payload.
+; The payload defined here MUST be wrapped in COSE_Sign1.
+; The predecessor receipt, if present, is the hash of the canonical bytes
+; of the previous receipt payload, not a path, URL, or repository locator.
+
+basic-receipt-payload = {
+  1 => 1,                              ; receipt_version = 1
+  2 => object-type-basic-receipt,      ; "basic-receipt"
+  3 => manifest-hash,
+  4 => final-root,
+  5 => issued-at,
+  6 => issuer-key-id,
+  ? 7 => predecessor-receipt-hash,
+  ? 8 => reporting-digest-set,
+  ? 9 => referenced-container-uuid,
+  ? 10 => receipt-profile-id,
+  ? 11 => receipt-note,
+}
+
+object-type-basic-receipt = "basic-receipt"
+manifest-hash = bstr .size 32
+final-root = bstr .size 32
+predecessor-receipt-hash = bstr .size 32
+referenced-container-uuid = bstr .size 16
+receipt-profile-id = uint
+issuer-key-id = tstr / bstr
+receipt-note = tstr
+
+; RFC 3339 / profile-defined timestamp encoding.
+; Kept as tstr in the payload model for readability and cross-tool exchange.
+issued-at = tstr
+
+; Reporting digests remain optional and non-authoritative.
+reporting-digest-set = {
+  * reporting-digest-id => digest-bytes
+}
+
+; 1 = SHA-256 reporting digest
+reporting-digest-id = 1
+
+digest-bytes = bstr .size 32

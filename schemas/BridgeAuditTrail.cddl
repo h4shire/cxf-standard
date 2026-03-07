@@ -1,0 +1,67 @@
+; CXF 1.0 Core / Governance Companion
+; Normative CDDL for the Bridge Audit Trail payload.
+; The payload defined here MUST be wrapped in COSE_Sign1.
+; Each audit event is a separately signed object. Multiple audit objects
+; MAY form an append-only chain via predecessor_audit_hash.
+;
+; Conditional rule (normative, not fully expressible in CDDL):
+; predecessor_audit_hash MUST be present for every audit record except
+; the initial_registration event for a given profile_id.
+
+bridge-audit-trail-payload = {
+  1 => 1,                              ; schema_version = 1
+  2 => profile-id,
+  3 => parameter-class-id,
+  4 => current-status,
+  5 => audit-type,
+  6 => issued-at,
+  7 => effective-until,
+  8 => reviewing-body-ref,
+  9 => binary-equivalence-artifact-hash,
+  10 => interop-corpus-version,
+  11 => negative-corpus-version,
+  ? 12 => last-recertified-at,
+  ? 13 => next-review-due,
+  ? 14 => last-reaudit-at,
+  ? 15 => migration-note-ref,
+  ? 16 => predecessor-audit-hash,
+  ? 17 => anomaly-note,
+}
+
+profile-id = uint / tstr
+parameter-class-id = uint / tstr
+
+current-status =
+    "current"
+  / "suspended"
+  / "deprecated"
+  / "expired"
+  / "disallowed"
+
+audit-type =
+    "initial_registration"
+  / "annual_review"
+  / "biennial_reaudit"
+  / "suspension"
+  / "reinstatement"
+  / "expiration"
+  / "status_change"
+
+issued-at = tstr
+last-recertified-at = tstr
+next-review-due = tstr
+last-reaudit-at = tstr
+effective-until = tstr
+
+; reviewing_body_ref SHOULD be a registry-controlled integer identifier.
+; A URI or stable string identifier MAY be used when no registry identifier
+; exists yet.
+reviewing-body-ref = uint / tstr
+
+binary-equivalence-artifact-hash = bstr .size 32
+predecessor-audit-hash = bstr .size 32
+
+interop-corpus-version = tstr
+negative-corpus-version = tstr
+migration-note-ref = tstr / bstr
+anomaly-note = tstr

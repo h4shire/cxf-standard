@@ -1,0 +1,125 @@
+; CXF 1.0 Core Specification
+; Normative CDDL for the deterministic CBOR manifest payload.
+; This schema describes the manifest payload only.
+; Deterministic CBOR requirements (definite lengths, no duplicate keys,
+; minimal integer encoding, no implicit security-relevant defaults)
+; are normative requirements of the specification and are not fully
+; expressible in CDDL alone.
+
+cxf-manifest = {
+  1 => 1,                              ; manifest_version = 1
+  2 => bstr .size 16,                  ; container_uuid (128-bit UUID bytes)
+  3 => digest-suite-id,                ; normative verification suite
+  4 => verification-profile-id,        ; registry-controlled verification profile
+  5 => [1* chunk-record],              ; chunk map, non-empty
+  6 => reporting-digest-set,           ; reporting digests
+  ? 7 => encryption-spec,              ; optional encryption layer
+  ? 8 => recovery-spec,                ; optional recovery/FEC layer
+  ? 9 => [* profile-id],               ; active profile IDs
+  ? 10 => manifest-flags,              ; non-security UI/runtime hints only
+  ? 11 => bstr,                        ; acquisition_start_time encoded by profile
+  ? 12 => bstr,                        ; acquisition_end_time encoded by profile
+}
+
+; ----- Registry-controlled identifiers -----
+
+profile-id = uint
+verification-profile-id = uint
+recovery-profile-id = uint
+encryption-profile-id = uint
+
+; 1 = SHA3-256 (the only normative verification suite in CXF 1.0)
+digest-suite-id = 1
+
+; Reporting digests remain non-authoritative.
+reporting-digest-set = {
+  * reporting-digest-id => digest-bytes
+}
+
+; 1 = SHA-256 reporting digest
+reporting-digest-id = 1
+
+digest-bytes = bstr .size 32
+
+; ----- Chunk model -----
+
+chunk-record = {
+  1 => chunk-id,
+  2 => logical-offset,
+  3 => logical-length,
+  4 => content-kind,
+  5 => chunk-digest,
+  ? 6 => merkle-leaf-index,
+  ? 7 => physical-offset,
+  ? 8 => physical-length,
+  ? 9 => zero-run-length,
+}
+
+chunk-id = uint
+logical-offset = uint
+logical-length = uint
+physical-offset = uint
+physical-length = uint
+merkle-leaf-index = uint
+zero-run-length = uint
+
+; 1 = data, 2 = zero, 3 = unreadable, 4 = reconstructed
+content-kind = 1 / 2 / 3 / 4
+
+chunk-digest = digest-bytes
+
+; ----- Optional encryption -----
+
+encryption-spec = {
+  1 => encryption-profile-id,
+  2 => cek-wrap-mode,
+  3 => aead-suite-id,
+  ? 4 => nonce-mode-id,
+  ? 5 => kdf-suite-id,
+  ? 6 => [* wrap-recipient],
+}
+
+; 1 = envelope encryption with container-local CEK
+cek-wrap-mode = 1
+
+; 1 = AES-256-GCM
+; full-length tags only in CXF 1.0
+; no truncated-tag mode in the core
+;aead-suite-id = 1
+
+aead-suite-id = 1
+
+; 1 = explicit profile-defined nonce derivation
+nonce-mode-id = 1
+
+; 1 = HKDF label-based key separation
+; 2 = Argon2id for password-wrapping profiles
+kdf-suite-id = 1 / 2
+
+wrap-recipient = {
+  1 => recipient-key-id,
+  2 => wrap-algorithm-id,
+  ? 3 => wrap-parameters,
+}
+
+recipient-key-id = tstr / bstr
+wrap-algorithm-id = uint
+wrap-parameters = { * uint => any }
+
+; ----- Optional recovery / FEC -----
+
+recovery-spec = {
+  1 => recovery-profile-id,
+  2 => recovery-mode,
+  ? 3 => recovery-parameters,
+}
+
+; 1 = deterministic FEC / parity profile
+recovery-mode = 1
+recovery-parameters = { * uint => any }
+
+; ----- Optional flags -----
+
+manifest-flags = {
+  * uint => bool / uint / tstr
+}

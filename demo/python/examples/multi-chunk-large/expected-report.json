@@ -1,0 +1,102 @@
+{
+  "report_schema_version": "demo-v1",
+  "tool_identity": "cxf-python-demo",
+  "build_identity": "local-dev",
+  "manifest_path": "/mnt/data/cxf_multi_chunk_large_example_wrapped/demo/python/examples/multi-chunk-large/manifest.json",
+  "manifest_hash": "bc4d319839255a74222b75842294bcd7ba4fdf81741ca8b5a51dca21bfd62757",
+  "expected_final_root": "30cbb81251fddd3b0f0f3ee23bcb5e195841398c7f1a0de620de0f67c22cbb0f",
+  "calculated_final_root": "30cbb81251fddd3b0f0f3ee23bcb5e195841398c7f1a0de620de0f67c22cbb0f",
+  "summary": {
+    "structural_state": "valid_layout",
+    "verification_state": "verified",
+    "content_state": "verified",
+    "chunks_total": 8,
+    "chunks_verified": 8,
+    "chunks_mismatched": 0,
+    "chunks_missing": 0,
+    "bridge_used": false
+  },
+  "verification_events": [
+    {
+      "sequence_no": 1,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0000.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 2,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0001.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 3,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0002.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 4,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0003.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 5,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0004.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 6,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0005.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 7,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0006.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 8,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0007.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 9,
+      "event_code": "final_root_verified",
+      "target_type": "container",
+      "target_ref": "multi-chunk-large-demo",
+      "status_axis": "verification_state",
+      "status_value": "verified",
+      "reason_code": null
+    }
+  ]
+}

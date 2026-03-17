@@ -1,0 +1,39 @@
+{
+  "container_id": "multi-chunk-large-demo",
+  "hash_suite": "sha3-256",
+  "expected_final_root": "30cbb81251fddd3b0f0f3ee23bcb5e195841398c7f1a0de620de0f67c22cbb0f",
+  "chunks": [
+    {
+      "path": "chunks/chunk-0000.bin",
+      "sha3_256": "dedfafdf681f943b794eca1bf432152b9600b3809a56bdba959a4a00e64cd02b"
+    },
+    {
+      "path": "chunks/chunk-0001.bin",
+      "sha3_256": "29d2243ca2179c5534975fb19c461192a959bea9851507e5c6b795c2fac47810"
+    },
+    {
+      "path": "chunks/chunk-0002.bin",
+      "sha3_256": "7789458865da46a382519bfeb2d8bcd858cd66ff4f744cebf8f6429f697d0313"
+    },
+    {
+      "path": "chunks/chunk-0003.bin",
+      "sha3_256": "ae4681c9dd43275dec40dbcf7b24029150fe1319286e2f9c193e2f046ad10807"
+    },
+    {
+      "path": "chunks/chunk-0004.bin",
+      "sha3_256": "2ce9b111747fcf6467f69c4d417faa56819ebf845c2162dfce9b18e6437cf81c"
+    },
+    {
+      "path": "chunks/chunk-0005.bin",
+      "sha3_256": "1cb61aaafb8dbfc48c2ca17f0ed2a9e91d05a21d83b9588df3c19ba1a79cfdcc"
+    },
+    {
+      "path": "chunks/chunk-0006.bin",
+      "sha3_256": "560a3fa38eab6bc73eb32a5f564bc0b30138e4d67f333155f3f45aab04ccf963"
+    },
+    {
+      "path": "chunks/chunk-0007.bin",
+      "sha3_256": "986d286081e5164c85e2a621788ce06060ea017a21402ba6c0a00c5d76a2aba6"
+    }
+  ]
+}

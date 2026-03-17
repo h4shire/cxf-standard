@@ -1,0 +1,15 @@
+{
+  "container_id": "missing-chunk-demo",
+  "hash_suite": "sha3-256",
+  "expected_final_root": "a84c7604d21d921574c7a35f9fb5584c1ded1620faa783e7db2bc5de22e1f231",
+  "chunks": [
+    {
+      "path": "chunks/chunk-0000.bin",
+      "sha3_256": "c90c45bc353f9dd001eb7ade331beb886e000246443c7f2b06a3d4ee4a1cd813"
+    },
+    {
+      "path": "chunks/chunk-0001.bin",
+      "sha3_256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ]
+}

@@ -1,14 +1,15 @@
 {
   "container_id": "wrong-final-root-demo",
+  "hash_suite": "sha3-256",
   "expected_final_root": "0000000000000000000000000000000000000000000000000000000000000000",
   "chunks": [
     {
       "path": "chunks/chunk-0000.bin",
-      "sha3_256": "def57165310d8125c2f764698c62d2d57c445790d50bebb0cf613b7328f67cbe"
+      "sha3_256": "af0a27c4f10f9b6cd4ac72f4a583ca0f5cacc83140952d9cbc574bfc90c1bd77"
     },
     {
       "path": "chunks/chunk-0001.bin",
-      "sha3_256": "051f44a6c9eed21c215d49d5b810a0d46ead2be0bb0b9a3d281072215b5c7974"
+      "sha3_256": "95974db5da49645ab82445ec45a70d09ddb3556ec9946a6ec00ecdb082e80be4"
     }
   ]
 }

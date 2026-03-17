@@ -1,18 +1,1 @@
-Expected outcome for broken-manifest
-
-Scenario type:
-- manifest parse / load failure
-
-Expected behavior:
-- manifest loading fails before normal verification begins
-- no standard verification report is produced
-- the demo verifier exits with code 2
-
-Suggested validation:
-1. Run:
-   python3 cxf_demo.py examples/broken-manifest/manifest.json
-2. Check:
-   echo $?
-
-Expected exit code:
-2
+Expected exit code: 2

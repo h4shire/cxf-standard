@@ -12,6 +12,7 @@
     "chunks_total": 2,
     "chunks_verified": 2,
     "chunks_mismatched": 0,
+    "chunks_missing": 0,
     "bridge_used": false
   },
   "verification_events": [

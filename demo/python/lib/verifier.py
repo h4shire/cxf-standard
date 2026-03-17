@@ -1,11 +1,13 @@
-
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from .hashing import derive_demo_final_root_hex, file_sha3_256_hex, sha3_256_hex
 from .model import VerificationEvent, VerifierReport
+
+
+MISSING_CHUNK_PLACEHOLDER_HASH = "0" * 64
 
 
 def verify_manifest(
@@ -24,12 +26,31 @@ def verify_manifest(
     chunk_hashes: List[str] = []
     verified_count = 0
     mismatched_count = 0
+    missing_count = 0
 
     for index, entry in enumerate(chunk_entries, start=1):
         rel_path = entry["path"]
         expected_hash = entry["sha3_256"]
         chunk_path = manifest_dir / rel_path
-        actual_hash = file_sha3_256_hex(chunk_path)
+
+        try:
+            actual_hash = file_sha3_256_hex(chunk_path)
+        except FileNotFoundError:
+            missing_count += 1
+            chunk_hashes.append(MISSING_CHUNK_PLACEHOLDER_HASH)
+            events.append(
+                VerificationEvent(
+                    sequence_no=index,
+                    event_code="chunk_missing",
+                    target_type="chunk",
+                    target_ref=rel_path,
+                    status_axis="content_state",
+                    status_value="missing",
+                    reason_code="chunk_file_missing",
+                )
+            )
+            continue
+
         chunk_hashes.append(actual_hash)
 
         if actual_hash == expected_hash:
@@ -62,9 +83,9 @@ def verify_manifest(
     calculated_final_root = derive_demo_final_root_hex(chunk_hashes)
     expected_final_root = manifest["expected_final_root"]
 
-    if calculated_final_root == expected_final_root:
+    if calculated_final_root == expected_final_root and mismatched_count == 0 and missing_count == 0:
         verification_state = "verified"
-        content_state = "verified" if mismatched_count == 0 else "degraded"
+        content_state = "verified"
         events.append(
             VerificationEvent(
                 sequence_no=len(events) + 1,
@@ -79,6 +100,9 @@ def verify_manifest(
     else:
         verification_state = "failed"
         content_state = "degraded"
+        reason = "final_root_mismatch"
+        if missing_count > 0:
+            reason = "chunk_file_missing"
         events.append(
             VerificationEvent(
                 sequence_no=len(events) + 1,
@@ -87,7 +111,7 @@ def verify_manifest(
                 target_ref=manifest.get("container_id", manifest_file.stem),
                 status_axis="verification_state",
                 status_value="failed",
-                reason_code="final_root_mismatch",
+                reason_code=reason,
             )
         )
 
@@ -98,6 +122,7 @@ def verify_manifest(
         "chunks_total": len(chunk_entries),
         "chunks_verified": verified_count,
         "chunks_mismatched": mismatched_count,
+        "chunks_missing": missing_count,
         "bridge_used": False,
     }
 

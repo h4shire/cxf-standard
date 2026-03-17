@@ -2,17 +2,17 @@
   "report_schema_version": "demo-v1",
   "tool_identity": "cxf-python-demo",
   "build_identity": "local-dev",
-  "manifest_hash": "c7d7cd1b8aed2d46763637e23c4781ccc32074935b12d84747f3bd30a15a5279",
-  "expected_final_root": "0000000000000000000000000000000000000000000000000000000000000000",
-  "calculated_final_root": "7f120d580322beb437b500603398dd987a67e9a0e39c031d7c9337d177b9afb8",
+  "manifest_hash": "b0681d2deb9738f60bd8c94b92e7e0b91c14522404f577ff085333c0d891b7d4",
+  "expected_final_root": "a84c7604d21d921574c7a35f9fb5584c1ded1620faa783e7db2bc5de22e1f231",
+  "calculated_final_root": "a84c7604d21d921574c7a35f9fb5584c1ded1620faa783e7db2bc5de22e1f231",
   "summary": {
     "structural_state": "valid_layout",
     "verification_state": "failed",
     "content_state": "degraded",
     "chunks_total": 2,
-    "chunks_verified": 2,
+    "chunks_verified": 1,
     "chunks_mismatched": 0,
-    "chunks_missing": 0,
+    "chunks_missing": 1,
     "bridge_used": false
   },
   "verification_events": [
@@ -27,21 +27,21 @@
     },
     {
       "sequence_no": 2,
-      "event_code": "chunk_verified",
+      "event_code": "chunk_missing",
       "target_type": "chunk",
       "target_ref": "chunks/chunk-0001.bin",
       "status_axis": "content_state",
-      "status_value": "verified",
-      "reason_code": null
+      "status_value": "missing",
+      "reason_code": "chunk_file_missing"
     },
     {
       "sequence_no": 3,
       "event_code": "final_root_mismatch",
       "target_type": "container",
-      "target_ref": "wrong-final-root-demo",
+      "target_ref": "missing-chunk-demo",
       "status_axis": "verification_state",
       "status_value": "failed",
-      "reason_code": "final_root_mismatch"
+      "reason_code": "chunk_file_missing"
     }
   ]
 }

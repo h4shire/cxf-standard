@@ -1,0 +1,15 @@
+{
+  "container_id": "broken-manifest-demo",
+  "hash_suite": "sha3-256",
+  "expected_final_root": "this-value-is-never-used-because-json-is-broken",
+  "chunks": [
+    {
+      "path": "chunks/chunk-0000.bin",
+      "sha3_256": "deadbeef"
+    },
+    {
+      "path": "chunks/chunk-0001.bin",
+      "sha3_256": "cafebabe"
+    }
+  ]  // invalid trailing comment for JSON on purpose
+}

@@ -1,0 +1,48 @@
+{
+  "report_schema_version": "demo-v1",
+  "tool_identity": "cxf-python-demo",
+  "build_identity": "local-dev",
+  "manifest_path": "/mnt/data/cxf_cbor_manifest_valid_example_wrapped/demo/python/examples/cbor-manifest-valid/manifest.cbor",
+  "manifest_hash": "4bd986fac9a27c25d352db510a1a79aebe16572968009b00dfd245124366be2f",
+  "expected_final_root": "fbcb5099c35deae6f7d85b6ab74fb82daf350260f26b410c1f178784d8a14065",
+  "calculated_final_root": "fbcb5099c35deae6f7d85b6ab74fb82daf350260f26b410c1f178784d8a14065",
+  "summary": {
+    "structural_state": "valid_layout",
+    "verification_state": "verified",
+    "content_state": "verified",
+    "chunks_total": 2,
+    "chunks_verified": 2,
+    "chunks_mismatched": 0,
+    "chunks_missing": 0,
+    "bridge_used": false
+  },
+  "verification_events": [
+    {
+      "sequence_no": 1,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0000.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 2,
+      "event_code": "chunk_verified",
+      "target_type": "chunk",
+      "target_ref": "chunks/chunk-0001.bin",
+      "status_axis": "content_state",
+      "status_value": "verified",
+      "reason_code": null
+    },
+    {
+      "sequence_no": 3,
+      "event_code": "final_root_verified",
+      "target_type": "container",
+      "target_ref": "cbor-manifest-valid-demo",
+      "status_axis": "verification_state",
+      "status_value": "verified",
+      "reason_code": null
+    }
+  ]
+}

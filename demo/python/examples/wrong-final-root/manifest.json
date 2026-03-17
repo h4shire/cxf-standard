@@ -1,0 +1,14 @@
+{
+  "container_id": "wrong-final-root-demo",
+  "expected_final_root": "0000000000000000000000000000000000000000000000000000000000000000",
+  "chunks": [
+    {
+      "path": "chunks/chunk-0000.bin",
+      "sha3_256": "def57165310d8125c2f764698c62d2d57c445790d50bebb0cf613b7328f67cbe"
+    },
+    {
+      "path": "chunks/chunk-0001.bin",
+      "sha3_256": "051f44a6c9eed21c215d49d5b810a0d46ead2be0bb0b9a3d281072215b5c7974"
+    }
+  ]
+}
